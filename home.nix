@@ -9,13 +9,16 @@
   home.packages = with pkgs; [
     # Shell
     fish
+    nushell      # Additional shell from brew list
     
     # Development tools
     rustc
     cargo
+    rustup       # From brew - better Rust toolchain management
     go
     lua
     fnm          # Fast Node Manager
+
     
     # Rust coreutils replacements
     uutils-coreutils # Rust coreutils (prefixed: uutils-cp, uutils-ls, etc.)
@@ -32,16 +35,23 @@
     xh           # Better curl/httpie
     du-dust      # Better du (rust)
     dua          # Disk usage analyzer
+    gdu          # From brew - another disk usage tool (faster for large dirs)
+    bottom       # From brew - better htop/top replacement
     hyperfine    # Benchmarking tool
     just         # Command runner
     presenterm   # Markdown presentations in terminal
     zellij       # Terminal multiplexer
+
+    tree-sitter  # From brew - parsing library for code
+    usage        # From brew - tool to show usage examples
     
     # Development utilities
     gh           # GitHub CLI
     git-lfs      # Git Large File Storage
     delta        # Better git diff
     ripgrep-all  # ripgrep for all file types
+
+    github-keygen # From brew - SSH key generation for GitHub
     
     # Rust development tools
     bacon        # Background rust code checker
@@ -60,6 +70,10 @@
     
     # Browser
     ungoogled-chromium
+    
+    # System utilities
+    gnupg        # From brew - GPG encryption
+    pinentry     # From brew - GPG password entry
     
     # Just Neovim - NvChad will handle the rest
     neovim
@@ -174,6 +188,7 @@
       cat = "bat";
       grep = "rg";
       find = "fd";
+      top = "bottom";  # Use bottom instead of htop
       
       # Git shortcuts
       g = "git";
@@ -189,7 +204,6 @@
       # System shortcuts
       vim = "nvim";
       vi = "nvim";
-      top = "htop";
       df = "duf";
       du = "dust";
       
