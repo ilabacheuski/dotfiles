@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, self, ... }:
 
 {
   # System-wide packages available to all users
@@ -36,6 +36,9 @@
       osascript -e 'display notification "Nix system updated successfully" with title "System Update"'
     '')
   ];
+
+  # Set hostname
+  networking.hostName = "mac-ilya";
 
   # Homebrew configuration
   homebrew = {
@@ -152,7 +155,7 @@
       ProgramArguments = [ 
         "${pkgs.bash}/bin/bash" 
         "-c" 
-        "export PATH=/nix/var/nix/profiles/default/bin:$PATH && nix-daily-update"
+        "export PATH=/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:$PATH && nix-daily-update"
       ];
       StartCalendarInterval = [
         {
