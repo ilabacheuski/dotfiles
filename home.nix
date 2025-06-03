@@ -15,8 +15,6 @@
     nushell      # Additional shell from brew list
     
     # Development tools
-    rustc
-    cargo
     rustup       # From brew - better Rust toolchain management
     go
     lua
@@ -72,8 +70,6 @@
     # System utilities
     gnupg        # From brew - GPG encryption
     
-    # Just Neovim - NvChad will handle the rest
-    neovim
   ];
 
   # Environment variables
@@ -308,26 +304,6 @@
       };
     };
     
-    plugins = [
-      {
-        name = "tide";
-        src = pkgs.fetchFromGitHub {
-          owner = "IlanCosman";
-          repo = "tide";
-          rev = "v6.0.1";
-          sha256 = "sha256-oLD7gYFCIeIzBeAW1j62z8FWz3gVowsxWYFB/9nuLkg=";
-        };
-      }
-      {
-        name = "fzf-fish";
-        src = pkgs.fetchFromGitHub {
-          owner = "PatrickF1";
-          repo = "fzf.fish";
-          rev = "v10.3";
-          sha256 = "sha256-T8KYLA/r/gOKvAivKRoeqIwE2pINlxFQtZJHpOy9GMM=";
-        };
-      }
-    ];
   };
 
   # Neovim - minimal config for NvChad
