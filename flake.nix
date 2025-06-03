@@ -23,6 +23,12 @@
           home-manager.useUserPackages = true;
           home-manager.users.ilyalabacheuski = import ./home.nix;
           home-manager.extraSpecialArgs = { inherit self; };
+         
+          # Define the user properly for nix-darwin
+          users.users.ilyalabacheuski = {
+            name = "ilyalabacheuski";
+            home = "/Users/ilyalabacheuski";
+          };
         }
       ];
       specialArgs = { inherit self; };

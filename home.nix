@@ -5,6 +5,9 @@
   home.username = "ilyalabacheuski";
   home.homeDirectory = "/Users/ilyalabacheuski";
 
+  # This value determines the Home Manager release that your configuration is compatible with
+  home.stateVersion = "25.05";
+  
   # Packages installed in user profile
   home.packages = with pkgs; [
     # Shell
@@ -51,8 +54,6 @@
     delta        # Better git diff
     ripgrep-all  # ripgrep for all file types
 
-    github-keygen # From brew - SSH key generation for GitHub
-    
     # Rust development tools
     bacon        # Background rust code checker
     cargo-info   # Cargo crate info
@@ -68,12 +69,8 @@
     # Media
     ncspot       # Spotify TUI client
     
-    # Browser
-    ungoogled-chromium
-    
     # System utilities
     gnupg        # From brew - GPG encryption
-    pinentry     # From brew - GPG password entry
     
     # Just Neovim - NvChad will handle the rest
     neovim
@@ -333,31 +330,6 @@
     ];
   };
 
-  # Ghostty terminal configuration
-  programs.ghostty = {
-    enable = true;
-    enableFishIntegration = true;
-    
-    settings = {
-      theme = "Snazzy";
-      
-      # Additional sensible defaults
-      font-family = "MesloLGS Nerd Font";
-      font-size = 14;
-      
-      # Window settings
-      window-decoration = true;
-      window-title-font-family = "MesloLGS Nerd Font";
-      
-      # Terminal behavior
-      cursor-style = "block";
-      cursor-style-blink = false;
-      
-      # Performance
-      macos-non-native-fullscreen = false;
-    };
-  };
-
   # Neovim - minimal config for NvChad
   programs.neovim = {
     enable = true;
@@ -369,69 +341,27 @@
   # Direnv for project environments
   programs.direnv = {
     enable = true;
-    enableFishIntegration = true;
     nix-direnv.enable = true;
-  };
-
-  # Tmux configuration
-  programs.tmux = {
-    enable = true;
-    shortcut = "a";
-    baseIndex = 1;
-    newSession = true;
-    escapeTime = 0;
-    historyLimit = 50000;
-    aggressiveResize = true;
-    
-    extraConfig = ''
-      # True color support
-      set -ga terminal-overrides ",*256col*:Tc"
-      set -g default-terminal "screen-256color"
-      
-      # Mouse support
-      set -g mouse on
-      
-      # Vi mode
-      setw -g mode-keys vi
-      
-      # Split panes using | and -
-      bind | split-window -h
-      bind - split-window -v
-      unbind '"'
-      unbind %
-      
-      # Switch panes using Alt-arrow without prefix
-      bind -n M-Left select-pane -L
-      bind -n M-Right select-pane -R
-      bind -n M-Up select-pane -U
-      bind -n M-Down select-pane -D
-      
-      # Reload config file
-      bind r source-file ~/.tmux.conf \; display "Config reloaded!"
-      
-      # Status bar
-      set -g status-position bottom
-      set -g status-bg colour234
-      set -g status-fg colour137
-    '';
   };
 
   # SSH configuration
   programs.ssh = {
     enable = true;
     addKeysToAgent = "yes";
-    
+
+    extraConfig = ''
+      UseKeychain yes
+      AddKeysToAgent yes
+    '';   
+ 
     matchBlocks = {
       "*" = {
-        useKeychain = true;
-        addKeysToAgent = "yes";
+        #addKeysToAgent = "yes";
         identityFile = "~/.ssh/id_ed25519";
       };
     };
   };
 
-  # This value determines the Home Manager release that your configuration is compatible with
-  home.stateVersion = "25.05";
   
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

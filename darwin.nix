@@ -1,6 +1,9 @@
 { config, pkgs, self, ... }:
 
 {
+  # Set primary user (required for many system settings)
+  system.primaryUser = "ilyalabacheuski";
+
   # System-wide packages available to all users
   environment.systemPackages = with pkgs; [
     vim
@@ -48,13 +51,19 @@
     brews = [
       "mas"  # Mac App Store CLI
       "ffmpeg"
+      "pinentry"
+
     ];
     
     # Homebrew casks (GUI applications)
     casks = [
+      # Browser
+      "eloston-chromium"
+
       # Development
       "visual-studio-code"
       "zed"           # Modern code editor
+
       
       # Utilities
       "the-unarchiver"
@@ -169,16 +178,17 @@
     };
   };
 
-  # System services
-  services.nix-daemon.enable = true;
-
   # Nix configuration
   nix = {
     package = pkgs.nix;
     settings = {
       experimental-features = "nix-command flakes";
-      auto-optimise-store = true;
       trusted-users = [ "@admin" ];
+    };
+    
+    # Use the new optimise.automatic instead of auto-optimise-store
+    optimise = {
+      automatic = true;
     };
     
     # Garbage collection
@@ -197,9 +207,6 @@
     # Enable Zsh (for compatibility)
     zsh.enable = true;
   };
-
-  # Security settings
-  security.pam.enableSudoTouchId = true;
 
   # Set Git commit hash for darwin-version
   system.configurationRevision = self.rev or self.dirtyRev or null;
