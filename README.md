@@ -27,7 +27,7 @@ Edit `darwin.nix` and update:
 ### 4. Build and Apply
 ```bash
 # First time setup
-nix run nix-darwin -- switch --flake ~/.config/nix
+sudo nix --extra-experimental-features "nix-command flakes" run nix-darwin/master#darwin-rebuild -- switch --flake "./flake.nix" --show-trace
 
 # Subsequent updates
 darwin-rebuild switch --flake ~/.config/nix
